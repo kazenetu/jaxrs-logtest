@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE logback>
 <configuration>
+
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%date %logger %message%n</pattern>
+      <pattern>%date %logger %message ${HOSTNAME}:${CONTEXT_NAME} %n</pattern>
     </encoder>
   </appender>
+
+  <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+    <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+      <driverClass>org.sqlite.JDBC</driverClass>
+      <url>jdbc:sqlite:test.db</url>
+      <user></user>
+      <password></password>
+    </connectionSource>
+  </appender>
+
   <root>
     <appender-ref ref="STDOUT" />
   </root>
